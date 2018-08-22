@@ -19,7 +19,6 @@ import {Supervisor} from '../models/Supervisor';
 })
 export class AddUserComponent implements OnInit {
 
-  newUser: User;
   baseUrl: string;
   error: string;
   err: Boolean = false;

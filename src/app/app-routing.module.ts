@@ -5,7 +5,9 @@ import {AppComponent} from './app.component';
 import {AddUserComponent} from './add-user/add-user.component';
 
 const routes: Routes = [
-   {path: 'add', component: AddUserComponent}];
+  {path: 'add', component: AddUserComponent}
+
+  ];
 
 @NgModule({
   imports: [
