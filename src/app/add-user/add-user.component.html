@@ -30,13 +30,28 @@
       <input type="password" class="form-control" id="cnfpassword" name="cnfpassword"
              placeholder="Password" [ngModel]="cnfpassword">
     </div>
+    <div class="dropdown" ngbDropdown>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        {{role}}
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" (click)="selectRole('Admin')">Admin</a>
+        <a class="dropdown-item" (click)="selectRole('Professor')">Professor</a>
+        <a class="dropdown-item" (click)="selectRole('Assistant')">Assistant</a>
+        <a class="dropdown-item" (click)="selectRole('Student')">Student</a>
+        <a class="dropdown-item" (click)="selectRole('Supervisor')">Supervisor</a>
+      </div>
+    </div>
+    <br>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <br>
   <div *ngIf="success" class="alert alert-success">
     <strong>Success!</strong> User Added Successfully.
   </div>
   <div *ngIf="err" class="alert alert-danger">
-    <strong>Error!</strong> Something went wrong {{error}}
+    <strong>Error!</strong> {{error}}
   </div>
 
 </div>
