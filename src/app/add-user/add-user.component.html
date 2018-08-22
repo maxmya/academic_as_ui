@@ -1,0 +1,42 @@
+<div class="container">
+  <form #userform="ngForm" (submit)="onSubmit(userform)">
+    <div class="form-group">
+      <label for="fname">First Name</label>
+      <input type="text" class="form-control" name="firstName" id="fname"
+             placeholder="Enter First Name" [ngModel]="firstName">
+    </div>
+    <div class="form-group">
+      <label for="lname">Second Name</label>
+      <input type="text" class="form-control" name="lastName" id="lname"
+             placeholder="Enter Second Name" [ngModel]="lastName">
+    </div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" name="username" id="username"
+             placeholder="Enter Username" [ngModel]="username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+             placeholder="Enter email" [ngModel]="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" id="password"
+             placeholder="Password" [ngModel]="password">
+    </div>
+    <div class="form-group">
+      <label for="cnfpassword">Confirm Password</label>
+      <input type="password" class="form-control" id="cnfpassword" name="cnfpassword"
+             placeholder="Password" [ngModel]="cnfpassword">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <div *ngIf="success" class="alert alert-success">
+    <strong>Success!</strong> User Added Successfully.
+  </div>
+  <div *ngIf="err" class="alert alert-danger">
+    <strong>Error!</strong> Something went wrong {{error}}
+  </div>
+
+</div>
