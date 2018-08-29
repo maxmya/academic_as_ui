@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="well">
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users;">
+        <td>{{user.id}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <th>
+          <button type="button" class="btn btn-primary" (click)="editAccount(user.id)">
+            edit
+          </button>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
