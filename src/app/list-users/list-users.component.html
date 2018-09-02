@@ -3,26 +3,83 @@
     <table class="table">
       <thead class="thead-dark">
       <tr>
-        <th>#</th>
+        <th>Admin id</th>
+        <th>User id</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Username</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let user of users;">
         <td>{{user.id}}</td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.username}}</td>
+        <td>{{user.user.id}}</td>
+        <td>{{user.user.firstName}}</td>
+        <td>{{user.user.lastName}}</td>
+        <td>{{user.user.username}}</td>
         <th>
-          <button type="button" class="btn btn-primary" (click)="editAccount(user.id)">
+          <button type="button"
+                  data-toggle="modal" data-target="#editUserModel"
+                  style="margin-right: 10px" class="btn btn-primary" (click)="editAccount(user.id)">
             edit
           </button>
+          <button type="button" class="btn btn-danger">delete</button>
         </th>
       </tr>
       </tbody>
     </table>
   </div>
+
+  <div class="modal" id="editUserModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalVerticalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalVerticalLabel">Edit Admin Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="fname"
+                   placeholder="Enter First Name" [ngModel]="dialogFirstName">
+          </div>
+          <div class="form-group">
+            <label for="lname">Second Name</label>
+            <input type="text" class="form-control" name="lastName" id="lname"
+                   placeholder="Enter Second Name" [ngModel]="dialogSecondName">
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" id="username"
+                   placeholder="Enter Username" [ngModel]="dialogUserName">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+                   placeholder="Enter email" [ngModel]="dialogUserEmail">
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="putUpdate()" data-dismiss="modal">Save changes
+          </button>
+        </div>
+
+        <div *ngIf="success" class="alert alert-success">
+          <strong>Success!</strong> User Edited Successfully.
+        </div>
+        <div *ngIf="err" class="alert alert-danger">
+          <strong>Error!</strong> {{error}}
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

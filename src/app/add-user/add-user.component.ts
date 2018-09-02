@@ -52,6 +52,9 @@ export class AddUserComponent implements OnInit {
 
     const formValues = Object.assign({}, form.value);
 
+    // this line is to ignore that user object should have id attribute
+    // it's auto generated from the backend
+    // @ts-ignore
     const formUser: User = {
       firstName: formValues.firstName,
       lastName: formValues.lastName,
@@ -75,30 +78,35 @@ export class AddUserComponent implements OnInit {
     let sentObj = {};
     switch (this.role) {
       case 'Admin': {
+        // @ts-ignore
         const admin: Admin = {user: formUser};
         sentObj = admin;
         this.baseUrl = 'http://localhost:8080/register/admin';
         break;
       }
       case 'Professor': {
+        // @ts-ignore
         const professor: Professor = {user: formUser};
         sentObj = professor;
         this.baseUrl = 'http://localhost:8080/register/professor';
         break;
       }
       case 'Assistant': {
+        // @ts-ignore
         const assistant: Assistant = {user: formUser};
         sentObj = assistant;
         this.baseUrl = 'http://localhost:8080/register/assistant';
         break;
       }
       case 'Student': {
+        // @ts-ignore
         const student: Student = {user: formUser};
         sentObj = student;
         this.baseUrl = 'http://localhost:8080/register/student';
         break;
       }
       case 'Supervisor': {
+        // @ts-ignore
         const supervisor: Supervisor = {user: formUser};
         sentObj = supervisor;
         this.baseUrl = 'http://localhost:8080/register/supervisor';

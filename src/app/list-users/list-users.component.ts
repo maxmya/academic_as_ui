@@ -10,6 +10,7 @@ import {Supervisor} from '../models/Supervisor';
 import {throwError} from 'rxjs';
 import {UsersResponse} from '../models/UsersResponse';
 import {forEach} from '@angular/router/src/utils/collection';
+import {User} from '../models/User';
 
 @Component({
   selector: 'app-list-users',
@@ -19,23 +20,68 @@ import {forEach} from '@angular/router/src/utils/collection';
 export class ListUsersComponent implements OnInit {
 
   baseUrl: string = 'http://localhost:8080/users/admins';
+  updateUrl: string = 'http://localhost:8080/update/admin/';
+
   error: string;
   err: Boolean = false;
   success: Boolean = false;
-  test: String;
-  users = new Array();
+  users = new Array<Admin>();
+
+  dialogFirstName: String;
+  dialogSecondName: String;
+  dialogUserName: String;
+  dialogUserEmail: String;
+  currentAdminId: number;
 
   constructor(public http: HttpClient) {
     this.http.get<UsersResponse>(this.baseUrl)
       .subscribe((res: UsersResponse) => {
         res.data.forEach((admin: Admin) => {
-          this.users.push(admin.user);
+          this.users.push(admin);
         });
       });
   }
 
-  editAccount(id) {
+  editAccount(id: number) {
+    this.users.forEach(admin => {
+      if (id == admin.id) {
+        this.dialogFirstName = admin.user.firstName;
+        this.dialogSecondName = admin.user.lastName;
+        this.dialogUserName = admin.user.username;
+        this.dialogUserEmail = admin.user.email;
+        this.currentAdminId = admin.id;
+      }
+    });
+  }
 
+  putUpdate() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    // @ts-ignore
+    const updatedUser: User = {
+      firstName: this.dialogFirstName,
+      lastName: this.dialogFirstName,
+      email: this.dialogFirstName,
+      username: this.dialogFirstName,
+    };
+    // @ts-ignore
+    const updatedAdmin: Admin = {user: updatedUser};
+
+    this.http.put<any>(this.updateUrl + this.currentAdminId, updatedAdmin, httpOptions)
+      .pipe(catchError((err, caught) => this.handleError(err)))
+      .subscribe(res => {
+        if (res.code == '200') {
+          this.err = false;
+          this.success = true;
+        } else {
+          this.success = false;
+          this.error = res.message;
+        }
+      });
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -45,9 +91,8 @@ export class ListUsersComponent implements OnInit {
     return throwError(error.message);
   };
 
-
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-
 }
+
